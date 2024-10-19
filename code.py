@@ -1,74 +1,57 @@
-import os 
-import shutil  # Importing shutil module to perform high-level file operations
+# Importing necessary modules
+import os
+import shutil
 
-# Define the source directory where the files are located
-source_directory = r"D:\portfolio project\python\File Sorter Py project\dataa"  # Change this path as needed
+# Path to the directory containing the files you want to sort
+path = r"D:/portfolio project/File Sorter Py project/dataa/"
 
-# Function to sort files based on their extensions
-def sort_files(source_directory):
-    # Get a list of all files in the source directory
-    files = os.listdir(source_directory)
+# Step 1: List the files in the specified directory
+file_names = os.listdir(path)
+print(file_names)  # Outputs the list of files in the directory
 
-    # Iterate through each file in the directory
-    for file in files:
-        # Get the full path of the file
-        file_path = os.path.join(source_directory, file)
+# Step 2: Check if folders for file types exist, if not, create them
+# List of folder names where files will be sorted
+folder_names = ["image files", "video files", "excel files", "PDF files"]
 
-        # Check if it's a file and not a directory
-        if os.path.isfile(file_path):
-            # Extract the file extension and convert to lowercase
-            file_extension = os.path.splitext(file)[1].lower()
+# Check if each folder exists; if not, create it
+for folder in folder_names:
+    if not os.path.exists(os.path.join(path, folder)):
+        os.makedirs(os.path.join(path, folder))
 
-            # Define the target folder name based on the file extension
-            target_folder = os.path.join(source_directory, file_extension[1:] + "_files")
+# Step 3: Organize files by moving them to respective folders based on file extension
+for file in file_names:
+    # If the file is a .jpg (image file)
+    if ".jpg" in file:
+        if not os.path.exists(os.path.join(path, "image files", file)):
+            shutil.move(os.path.join(path, file), os.path.join(path, "image files", file))
+        else:
+            os.remove(os.path.join(path, file))  # If the file already exists in the folder, delete the duplicate
 
-            # Create the target folder if it does not exist
-            if not os.path.exists(target_folder):
-                os.makedirs(target_folder)
+    # If the file is an .xlsx (Excel file)
+    elif ".xlsx" in file:
+        if not os.path.exists(os.path.join(path, "excel files", file)):
+            shutil.move(os.path.join(path, file), os.path.join(path, "excel files", file))
+        else:
+            os.remove(os.path.join(path, file))  # Remove duplicate
 
-            # Move the file to the target folder
-            shutil.move(file_path, os.path.join(target_folder, file))
-            print(f"Moved {file} to {target_folder}")
+    # If the file is an .mp4 (video file)
+    elif ".mp4" in file:
+        if not os.path.exists(os.path.join(path, "video files", file)):
+            shutil.move(os.path.join(path, file), os.path.join(path, "video files", file))
+        else:
+            os.remove(os.path.join(path, file))  # Remove duplicate
 
-# Function to check for duplicate files based on file names and sizes (optional enhancement)
-def handle_duplicates(source_directory):
-    seen_files = {}  # Dictionary to store files based on size and names to detect duplicates
+    # If the file is a .pdf (PDF file)
+    elif ".pdf" in file:
+        if not os.path.exists(os.path.join(path, "PDF files", file)):
+            shutil.move(os.path.join(path, file), os.path.join(path, "PDF files", file))
+        else:
+            os.remove(os.path.join(path, file))  # Remove duplicate
 
-    # Iterate through each file in the directory
-    for file in os.listdir(source_directory):
-        file_path = os.path.join(source_directory, file)
+# Step 4: Confirm that the sorting is complete
+print("Done")
 
-        # Check if it's a file
-        if os.path.isfile(file_path):
-            # Get the file size
-            file_size = os.path.getsize(file_path)
+# Step 5: List the sorted folders to verify
+sorted_folders = os.listdir(path)
+print(sorted_folders)  # Outputs the list of folders after sorting
 
-            # Combine file name and size to create a unique key
-            file_key = (file, file_size)
-
-            # Check if the file with the same name and size already exists
-            if file_key in seen_files:
-                print(f"Duplicate found: {file}")
-                # Options to handle duplicates: Move, Delete, or Skip (user choice)
-                duplicate_action = input("Choose action for duplicate (move/delete/skip): ").lower()
-                if duplicate_action == 'move':
-                    duplicates_dir = os.path.join(source_directory, 'duplicates')
-                    if not os.path.exists(duplicates_dir):
-                        os.makedirs(duplicates_dir)
-                    shutil.move(file_path, os.path.join(duplicates_dir, file))
-                elif duplicate_action == 'delete':
-                    os.remove(file_path)
-                    print(f"Deleted: {file}")
-                else:
-                    print(f"Skipped: {file}")
-            else:
-                # If not a duplicate, add it to the dictionary
-                seen_files[file_key] = file_path
-
-# Main function call to sort files
-sort_files(source_directory)
-
-# Optional: Uncomment the next line to handle duplicates
-# handle_duplicates(source_directory)
-
-print("File sorting completed!")

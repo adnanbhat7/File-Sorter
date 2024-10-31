@@ -1,6 +1,6 @@
 # File Sorter by File Type
 
-This project is a Python-based file sorter that organizes files in a given directory based on their file types (extensions). It helps declutter directories by sorting files into relevant folders automatically.
+This project is a Simple Python-based file sorter that organizes files in a given directory based on their file types (extensions). It helps declutter directories by sorting files into relevant folders automatically.
 
 ## Features
 - Sorts files into folders based on common file types:
@@ -18,31 +18,6 @@ This project is a Python-based file sorter that organizes files in a given direc
 
 ## Prerequisites
 - Python 3.x installed on your machine.
-
-## Installation
-1. Clone this repository to your local machine:
-    ```bash
-    git clone https://github.com/adnanbhat7/File-Sorter.git
-    ```
-
-2. Navigate to the project directory:
-    ```bash
-    cd File-Sorter
-    ```
-
-3. Make sure Python is installed. You can check by running:
-    ```bash
-    python --version
-    ```
-
-## Usage
-1. For the Python script, set the path to the directory where you want to sort files by updating the `path` variable in the `FileSorter_pyton.py` file:
-    ```python
-    path = r"D:/portfolio project/File Sorter Py project/dataa/"
-    ```
-
-2. Run the Python script:
-    ```bash
     python FileSorter_pyton.py
     ```
 

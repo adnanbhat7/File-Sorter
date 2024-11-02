@@ -48,7 +48,7 @@ for file in file_names:
         else:
             os.remove(os.path.join(path, file))  # Remove duplicate
 
-# Step 4: Confirm that the sorting is complete
+# Step 4: Confirm that the sorting is complete.
 print("Done")
 
 # Step 5: List the sorted folders to verify

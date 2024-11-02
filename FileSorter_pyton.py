@@ -13,7 +13,7 @@ print(file_names)  # Outputs the list of files in the directory
 # List of folder names where files will be sorted
 folder_names = ["image files", "video files", "excel files", "PDF files"]
 
-# Check if each folder exists; if not, create it
+# Check if each folder exists; if not, create it.
 for folder in folder_names:
     if not os.path.exists(os.path.join(path, folder)):
         os.makedirs(os.path.join(path, folder))
